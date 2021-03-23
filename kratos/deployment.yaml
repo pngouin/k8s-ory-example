@@ -1,0 +1,125 @@
+# Source: kratos/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-kratos
+  namespace: default
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.5.3
+    app.kubernetes.io/instance: test-kratos
+    app.kubernetes.io/version: "v0.5.5"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kratos
+      app.kubernetes.io/instance: test-kratos
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kratos
+        helm.sh/chart: kratos-0.5.3
+        app.kubernetes.io/instance: test-kratos
+        app.kubernetes.io/version: "v0.5.5"
+      annotations:
+    spec:
+      initContainers:
+        -
+          name: kratos-automigrate
+          image: "oryd/kratos:v0.5.5-alpha.1"
+          imagePullPolicy: IfNotPresent
+          command: ["kratos"]
+          args: ["migrate", "sql", "-e", "--yes", "--config", "/etc/config/kratos.yaml"]
+          volumeMounts:
+            -
+              name: kratos-config-volume
+              mountPath: /etc/config
+              readOnly: true
+          env:
+            -
+              name: DSN
+              valueFrom:
+                secretKeyRef:
+                  name: kratos-secret
+                  key: dsn
+            -
+              name: SECRETS_DEFAULT
+              valueFrom:
+                secretKeyRef:
+                  name: kratos-secret
+                  key: secretsDefault
+            -
+              name: SECRETS_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: kratos-secret
+                  key: secretsCookie
+      volumes:
+        -
+          name: kratos-config-volume
+          configMap:
+            name: kratos-config
+        -
+          name: kratos-identity-schema
+          configMap:
+            name: kratos-identity
+      containers:
+        - name: kratos
+          image: "oryd/kratos:v0.5.5-alpha.1"
+          imagePullPolicy: IfNotPresent
+          command: ["kratos"]
+          args: [
+            "serve",
+            "all",
+            "--dev",
+            "--config",
+            "/etc/config/kratos.yaml"
+          ]
+          volumeMounts:
+            -
+              name: kratos-config-volume
+              mountPath: /etc/config
+              readOnly: true
+            -
+              name: kratos-identity-schema
+              mountPath: /etc/config/identity/
+              readOnly: true
+          env:
+            -
+              name: DSN
+              valueFrom:
+                secretKeyRef:
+                  name: kratos-secret
+                  key: dsn
+            -
+              name: SECRETS_DEFAULT
+              valueFrom:
+                secretKeyRef:
+                  name: kratos-secret
+                  key: secretsDefault
+            -
+              name: SECRETS_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: kratos-secret
+                  key: secretsCookie
+          ports:
+            - name: http-admin
+              containerPort: 4434
+              protocol: TCP
+            - name: http-public
+              containerPort: 4433
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health/alive
+              port: http-admin
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http-admin
+          resources:
+            null

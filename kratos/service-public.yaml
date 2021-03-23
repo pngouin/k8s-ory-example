@@ -1,0 +1,22 @@
+# Source: kratos/templates/service-public.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-kratos-public
+  namespace: default
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.5.3
+    app.kubernetes.io/instance: test-kratos
+    app.kubernetes.io/version: "0.5.2-alpha.1-sqlite"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 4433
+      targetPort: http-public
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: kratos
+    app.kubernetes.io/instance: test-kratos
