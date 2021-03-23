@@ -1,0 +1,73 @@
+# Source: keto/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-keto
+  namespace: default
+  labels:
+    app.kubernetes.io/name: keto
+  annotations:
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: keto
+      app.kubernetes.io/instance: test-keto
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: keto
+        app.kubernetes.io/instance: test-keto
+      annotations:
+    spec:
+      initContainers:
+        -
+          name: keto-automigrate
+          image: "oryd/keto:v0.5.7-alpha.1"
+          imagePullPolicy: IfNotPresent
+          command: ["keto"]
+          args: ["migrate", "sql", "-e", "--config", "/etc/config/keto.yaml"]
+          volumeMounts:
+            -
+              name: keto-config-volume
+              mountPath: /etc/config
+              readOnly: true
+          env:
+            -
+              name: DSN
+              valueFrom:
+                secretKeyRef:
+                  name: keto-secret
+                  key: dsn
+      volumes:
+        -
+          name: keto-config-volume
+          configMap:
+            name: keto-config
+      containers:
+        - name: keto
+          image: "oryd/keto:v0.5.7-alpha.1"
+          imagePullPolicy: IfNotPresent
+          command: ["keto"]
+          args: [
+            "serve",
+            "all",
+            "--config",
+            "/etc/config/keto.yaml"
+          ]
+          volumeMounts:
+            -
+              name: keto-config-volume
+              mountPath: /etc/config
+              readOnly: true
+          env:
+            -
+              name: DSN
+              valueFrom:
+                secretKeyRef:
+                  name: keto-secret
+                  key: dsn
+          ports:
+            - name: keto-api
+              containerPort: 4456
+              protocol: TCP

@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: keto-add-policies
+spec:
+  template:
+    metadata:
+      name: keto-add-policies
+    spec:
+      volumes:
+        - name: keto-access-policy-volume
+          configMap:
+            name: keto-access-policy
+      containers:
+      - name: keto-add-policies
+        image: oryd/keto:v0.5.7-alpha.1
+        args: ["engines", "acp", "ory", "policies", "import", "exact", "/policies/access-policy.json"]
+        volumeMounts:
+            -
+              name: keto-access-policy-volume
+              mountPath: /policies/access-policy.json
+              subPath: access-policy.json
+        env:
+          - name: KETO_URL
+            value: http://keto-api:4456
+      restartPolicy: Never

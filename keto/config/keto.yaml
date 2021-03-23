@@ -1,0 +1,8 @@
+serve:
+  port: 4456
+  host: 0.0.0.0
+  cors:
+    enabled: false
+log:
+  level: debug
+  format: json
