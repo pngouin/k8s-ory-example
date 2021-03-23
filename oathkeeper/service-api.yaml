@@ -1,0 +1,23 @@
+---
+# Source: oathkeeper/templates/service-api.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-oathkeeper-api
+  namespace: default
+  labels:
+    app.kubernetes.io/name: oathkeeper
+    helm.sh/chart: oathkeeper-0.5.3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "v0.38.4-beta.1"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 4456
+      targetPort: http-api
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: oathkeeper
+    app.kubernetes.io/instance: RELEASE-NAME

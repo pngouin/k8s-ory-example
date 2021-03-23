@@ -1,0 +1,25 @@
+# Source: oathkeeper/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "test-oathkeeper-test-connection"
+  namespace: default
+  labels:
+    app.kubernetes.io/name: oathkeeper
+    helm.sh/chart: oathkeeper-0.5.3
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/version: "v0.38.4-beta.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: liveness-probe
+      image: busybox
+      command: ['wget']
+      args:  ['http://test-oathkeeper-api:4456/health/alive']
+    - name: readiness-probe
+      image: busybox
+      command: ['wget']
+      args:  ['http://test-oathkeeper-api:4456/health/ready']
+  restartPolicy: Never
