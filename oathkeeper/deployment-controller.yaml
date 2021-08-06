@@ -6,10 +6,7 @@ metadata:
   namespace: default
   labels:
     app.kubernetes.io/name: oathkeeper
-    helm.sh/chart: oathkeeper-0.5.3
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "v0.38.4-beta.1"
-    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "v0.38.14-beta.1"
   annotations:
 spec:
   replicas: 1
@@ -21,10 +18,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: oathkeeper
-        helm.sh/chart: oathkeeper-0.5.3
-        app.kubernetes.io/instance: RELEASE-NAME
-        app.kubernetes.io/version: "v0.38.4-beta.1"
-        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/version: "v0.38.14-beta.1"
       annotations:
     spec:
       volumes:
@@ -39,7 +33,7 @@ spec:
             secretName: oathkeeper-jwk  
       containers:
         - name: oathkeeper
-          image: "oryd/oathkeeper:v0.38.9-beta.1"
+          image: "oryd/oathkeeper:v0.38.14-beta.1"
           imagePullPolicy: IfNotPresent
           command: [ "oathkeeper", "serve", "--config", "/etc/config/config.yaml" ]
           env:
