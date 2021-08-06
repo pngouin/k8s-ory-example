@@ -18,6 +18,8 @@ selfservice:
   methods:
     link:
       enabled: true
+      # Defines how long a recovery link is valid for (default 1h)
+        lifespan: 30m
     password:
       enabled: true
 
@@ -65,12 +67,13 @@ secrets:
     - 4159f931cce7cc16d5c17814d76686d960d6ee40675faca165067eb1faa9bd4fa9beb9e1a2a689b2003355ae5746a283bf591f34dbc0e4d8f4a0685e754455b3
 
 hashers:
+  # kratos hashers argon2 calibrate 1s 
   argon2:
-    parallelism: 1
-    memory: 131072
-    iterations: 2
+    parallelism: 24
+    memory: 1048576
+    iterations: 5
     salt_length: 16
-    key_length: 16
+    key_length: 32
 
 identity:
   default_schema_url: file:///etc/config/identity/identity.schema.json
