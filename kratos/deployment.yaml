@@ -73,7 +73,8 @@ spec:
             "all",
             "--dev",
             "--config",
-            "/etc/config/kratos.yaml"
+            "/etc/config/kratos.yaml",
+            "--watch-courier"
           ]
           volumeMounts:
             -
