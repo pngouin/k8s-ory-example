@@ -7,7 +7,6 @@ resources:
   - service-proxy.yaml
   - ingress.yaml
 
-
 secretGenerator:
   - name: oathkeeper-jwk
     files:

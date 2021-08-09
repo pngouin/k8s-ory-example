@@ -10,8 +10,12 @@ spec:
   type: ClusterIP
   ports:
     - port: 4456
-      targetPort: keto-api
+      targetPort: keto-read-api
       protocol: TCP
-      name: http
+      name: http-keto-read-api
+    - port: 4457
+      targetPort: keto-write-api
+      protocol: TCP
+      name: http-keto-write-api
   selector:
     app.kubernetes.io/name: keto

@@ -7,17 +7,13 @@ metadata:
   namespace: default
   labels:
     app.kubernetes.io/name: oathkeeper
-    helm.sh/chart: oathkeeper-0.5.3
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/version: "v0.38.4-beta.1"
-    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "v0.38.14-beta.1"
 spec:
   type: ClusterIP
   ports:
     - port: 4456
-      targetPort: http-api
+      targetPort: oath-api
       protocol: TCP
       name: http
   selector:
     app.kubernetes.io/name: oathkeeper
-    app.kubernetes.io/instance: RELEASE-NAME

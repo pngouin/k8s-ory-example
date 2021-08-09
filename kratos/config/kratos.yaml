@@ -1,3 +1,5 @@
+version: v0.7.1-alpha.1
+
 serve:
   public:
     base_url: http://ory.test.info/.ory/kratos/public/
@@ -66,9 +68,9 @@ secrets:
 
 hashers:
   argon2:
-    parallelism: 1
-    memory: 131072
-    iterations: 2
+    parallelism: 24
+    memory: 128MB
+    iterations: 5
     salt_length: 16
     key_length: 16
 
@@ -77,4 +79,4 @@ identity:
 
 courier:
   smtp:
-    connection_uri: smtps://kratos:kratos@mail-smtp:1025/?skip_ssl_verify=true
+    connection_uri: smtps://kratos:kratos@mail-smtp:1025/?skip_ssl_verify=true&legacy_ssl=true
