@@ -23,10 +23,10 @@ spec:
       initContainers:
         -
           name: keto-automigrate
-          image: "oryd/keto:v0.5.7-alpha.1"
+          image: "oryd/keto:v0.6.0-alpha.3"
           imagePullPolicy: IfNotPresent
           command: ["keto"]
-          args: ["migrate", "sql", "-e", "--config", "/etc/config/keto.yaml"]
+          args: ["migrate", "up", "-y", "--all-namespaces", "--config", "/etc/config/keto.yaml"]
           volumeMounts:
             -
               name: keto-config-volume
@@ -46,7 +46,7 @@ spec:
             name: keto-config
       containers:
         - name: keto
-          image: "oryd/keto:v0.5.7-alpha.1"
+          image: "oryd/keto:v0.6.0-alpha.3"
           imagePullPolicy: IfNotPresent
           command: ["keto"]
           args: [
@@ -68,6 +68,9 @@ spec:
                   name: keto-secret
                   key: dsn
           ports:
-            - name: keto-api
+            - name: keto-write-api
+              containerPort: 4457
+              protocol: TCP
+            - name: keto-read-api
               containerPort: 4456
               protocol: TCP

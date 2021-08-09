@@ -1,0 +1,20 @@
+[
+    {
+        "namespace": "access",
+        "object": "administration",
+        "relation": "access",
+        "subject": "admin"
+    },
+    {
+        "namespace": "access",
+        "object": "application",
+        "relation": "access",
+        "subject": "admin"
+    },
+    {
+        "namespace": "access",
+        "object": "application",
+        "relation": "access",
+        "subject": "user"
+    }
+]
