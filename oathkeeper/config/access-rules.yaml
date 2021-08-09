@@ -38,11 +38,12 @@
   authorizer:
     handler: remote_json
     config:
-      remote: http://keto-api:4456/engines/acp/ory/exact/allowed
+      remote: http://keto-api:4456/check
       payload: |
         {
-          "action": "access",
-          "resource": "project:admin",
+          "namespace": "access",
+          "object": "administration",
+          "relation": "access",
           "subject": "{{print .Extra.identity.traits.role }}"
         }
   mutators:
@@ -63,11 +64,12 @@
   authorizer:
     handler: remote_json
     config:
-      remote: http://keto-api:4456/engines/acp/ory/exact/allowed
+      remote: http://keto-api:4456/check
       payload: |
         {
-          "action": "access",
-          "resource": "project:admin",
+          "namespace": "access",
+          "object": "administration",
+          "relation": "access",
           "subject": "{{print .Extra.identity.traits.role }}"
         }
   mutators:
@@ -109,11 +111,12 @@
   authorizer:
     handler: remote_json
     config:
-      remote: http://keto-api:4456/engines/acp/ory/exact/allowed
+      remote: http://keto-api:4456/check
       payload: |
         {
-          "action": "access",
-          "resource": "project:panel",
+          "namespace": "access",
+          "object": "application",
+          "relation": "access",
           "subject": "{{print .Extra.identity.traits.role }}"
         }
   mutators:

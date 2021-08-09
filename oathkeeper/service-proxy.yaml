@@ -12,7 +12,7 @@ spec:
   type: ClusterIP
   ports:
     - port: 4455
-      targetPort: http-proxy
+      targetPort: oath-proxy
       protocol: TCP
       name: http
   selector:

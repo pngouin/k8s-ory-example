@@ -13,7 +13,6 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: oathkeeper
-      app.kubernetes.io/instance: RELEASE-NAME
   template:
     metadata:
       labels:
@@ -50,20 +49,17 @@ spec:
               mountPath: /etc/secrets
               readOnly: true
           ports:
-            - name: http-api
+            - name: oath-api
               containerPort: 4456
               protocol: TCP
-            - name: http-proxy
+            - name: oath-proxy
               containerPort: 4455
               protocol: TCP
           livenessProbe:
             httpGet:
               path: /health/alive
-              port: http-api
+              port: oath-api
           readinessProbe:
             httpGet:
               path: /health/ready
-              port: http-api
-          resources:
-            {}
----
+              port: oath-api

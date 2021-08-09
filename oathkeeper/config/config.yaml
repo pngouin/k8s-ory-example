@@ -4,6 +4,7 @@ log:
 
 serve:
   proxy:
+    port: 4455
     cors:
       enabled: true
       allowed_origins:
@@ -21,6 +22,8 @@ serve:
         - Content-Type
       allow_credentials: true
       debug: true
+  api:
+    port: 4456
 
 errors:
   fallback:
@@ -72,7 +75,9 @@ authorizers:
   remote_json:
     enabled: true
     config:
-      remote: http://keto-api:4456/engines/acp/ory/exact/allowed
+      remote: http://keto-api:4456/check
+      # https://github.com/ory/oathkeeper/issues/797
+      forward_response_headers_to_upstream: []
       payload: |
         {
           "subject": "{{ print .Subject }}",
