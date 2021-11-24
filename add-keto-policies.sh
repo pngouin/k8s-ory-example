@@ -15,7 +15,7 @@ deployments=$($KUBECTL_CLIENT get deployments.apps -o jsonpath='{.items[*].metad
 for deployment in $deployments
 do
   if [[ ${deployment} == *"keto"* ]]; then
-    echo "# $($KUBECTL_CLIENT rollout status deployment $deployement)"
+    echo "# $($KUBECTL_CLIENT rollout status deployment $deployment)"
     if [ -f "keto/keto-job/kustomization.yaml" ]; then
       $KUSTOMIZE_CLIENT build keto/keto-job/
     else
