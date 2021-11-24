@@ -11,10 +11,10 @@ if [ -e "./kustomize" ]; then
   KUSTOMIZE_CLIENT="./kustomize"
 fi
 
-deployements=$($KUBECTL_CLIENT get deployments.apps -o jsonpath='{.items[*].metadata.name}' | tr " " "\n")
-for deployement in $deployements
+deployments=$($KUBECTL_CLIENT get deployments.apps -o jsonpath='{.items[*].metadata.name}' | tr " " "\n")
+for deployment in $deployments
 do
-  if [[ ${deployement,,} == *"keto"* ]]; then
+  if [[ ${deployment} == *"keto"* ]]; then
     echo "# $($KUBECTL_CLIENT rollout status deployment $deployement)"
     if [ -f "keto/keto-job/kustomization.yaml" ]; then
       $KUSTOMIZE_CLIENT build keto/keto-job/
