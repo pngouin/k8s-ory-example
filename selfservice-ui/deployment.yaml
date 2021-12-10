@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: selfservice-ui
-          image: "oryd/kratos-selfservice-ui-node:v0.7.1-alpha.1"
+          image: "oryd/kratos-selfservice-ui-node:v0.8.0-alpha.4.pre.0"
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:

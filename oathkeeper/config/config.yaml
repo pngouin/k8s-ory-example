@@ -32,7 +32,7 @@ errors:
     redirect:
       enabled: true
       config:
-        to: http://ory.test.info/panel/auth/login
+        to: http://ory.test.info/panel/welcome
         when:
           -
             error:

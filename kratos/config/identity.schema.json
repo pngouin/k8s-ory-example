@@ -16,6 +16,9 @@
             "credentials": {
               "password": {
                 "identifier": true
+              },
+              "totp": {
+                "account_name": true
               }
             },
             "verification": {
@@ -30,19 +33,23 @@
           "type": "object",
           "properties": {
             "first": {
+              "title": "First Name",
               "type": "string"
             },
             "last": {
+              "title": "Last Name",
               "type": "string"
             }
           }
         },
         "role": {
+          "title": "Role",
           "type": "string",
           "default": "user",
           "enum": ["user", "admin"]
         },
         "group": {
+          "title": "Group",
           "type":"array",
           "items": {
             "type": "string"
@@ -52,7 +59,7 @@
       "required": [
         "email"
       ],
-      "additionalProperties": false
+      "additionalProperties": true
     }
   }
 }

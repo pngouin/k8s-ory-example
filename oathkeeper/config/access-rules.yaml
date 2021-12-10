@@ -77,7 +77,7 @@
   errors:
     - handler: redirect
       config:
-        to: http://ory.test.info/panel/auth/login
+        to: http://ory.test.info/panel/welcome
 
 -
   id: "ory:kratos-selfservice-ui-node:anonymous"
@@ -86,7 +86,7 @@
     url: "http://selfservice:4455"
     strip_path: /panel
   match:
-    url: "http://ory.test.info/panel/<{error,recovery,verify,auth/*,**.css,**.js}{/,}>"
+    url: "http://ory.test.info/panel/<{welcome,registration,verification,recovery,login,**.css,**.js,**.png}{/,}>"
     methods:
       - GET
   authenticators:
@@ -103,7 +103,7 @@
     url: "http://selfservice:4455"
     strip_path: /panel
   match:
-    url: "http://ory.test.info/panel/<{,debug,dashboard,settings}>"
+    url: "http://ory.test.info/panel/<{debug,panel,settings}>"
     methods:
       - GET
   authenticators:
@@ -124,4 +124,4 @@
   errors:
     - handler: redirect
       config:
-        to: http://ory.test.info/panel/auth/login
+        to: http://ory.test.info/panel/welcome

@@ -1,5 +1,5 @@
 # Oathkeeper, Kratos and Keto example
-## SSO and ACL
+## SSO, ACL and 2FA
 
 This repository show how create an SSO and ACL system with the Ory stack and Kubernetes.
 It use the [kratos-selfservice-ui-node](https://github.com/ory/kratos-selfservice-ui-node), a fork of [mailslurper](https://github.com/pngouin/mailslurper) and a [react-admin app](https://github.com/pngouin/react-admin-ory) for the *admin* page (I'm not an front-end dev the admin page work, nothing plus).
@@ -30,7 +30,7 @@ $ sudo bash -c 'cat << EOF >> /etc/hosts
 192.168.XXX.XXX    ory.test.info
 EOF'
 
-# Open your browser and open http://ory.test.info/panel/ and http://mail.test.info
+# Open your browser and open http://ory.test.info/panel/welcome and http://mail.test.info
 ```
 
 ## How to use
@@ -39,9 +39,16 @@ Go to http://ory.test.info/panel/ and create an account, you can validate your m
 
 | URL | Description |
 | :--- | :--- |
-| http://ory.test.info/panel/ | User app for create an account, login, other |
+| http://ory.test.info/panel/welcolme | User app for create an account, login, other |
 | http://ory.test.info/admin/ | Admin react app, you need the role `admin` to access |
 | http://mail.test.info | Local mail panel, you will receive mail confirmation here |
+
+This project is tested on linux with minikube version 
+```
+$ minikube version
+minikube version: v1.21.0
+commit: 76d74191d82c47883dc7e1319ef7cebd3e00ee11
+```
 
 ## How it works
 
