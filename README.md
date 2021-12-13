@@ -39,7 +39,7 @@ Go to http://ory.test.info/panel/ and create an account, you can validate your m
 
 | URL | Description |
 | :--- | :--- |
-| http://ory.test.info/panel/welcolme | User app for create an account, login, other |
+| http://ory.test.info/panel/welcome | User app for create an account, login, other |
 | http://ory.test.info/admin/ | Admin react app, you need the role `admin` to access |
 | http://mail.test.info | Local mail panel, you will receive mail confirmation here |
 
