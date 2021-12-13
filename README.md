@@ -1,5 +1,5 @@
 # Oathkeeper, Kratos and Keto example
-## SSO, ACL and 2FA
+## Authentification, ACL and 2FA
 
 This repository show how create an SSO and ACL system with the Ory stack and Kubernetes.
 It use the [kratos-selfservice-ui-node](https://github.com/ory/kratos-selfservice-ui-node), a fork of [mailslurper](https://github.com/pngouin/mailslurper) and a [react-admin app](https://github.com/pngouin/react-admin-ory) for the *admin* page (I'm not an front-end dev the admin page work, nothing plus).
