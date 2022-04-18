@@ -7,7 +7,7 @@ metadata:
   namespace: default
   labels:
     app.kubernetes.io/name: oathkeeper
-    app.kubernetes.io/version: "v0.38.14-beta.1"
+    app.kubernetes.io/version: "v0.38.25-beta.1"
 spec:
   type: ClusterIP
   ports:

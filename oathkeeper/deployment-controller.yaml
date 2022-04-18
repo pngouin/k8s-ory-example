@@ -6,8 +6,7 @@ metadata:
   namespace: default
   labels:
     app.kubernetes.io/name: oathkeeper
-    app.kubernetes.io/version: "v0.38.14-beta.1"
-  annotations:
+    app.kubernetes.io/version: "v0.38.25-beta.1"
 spec:
   replicas: 1
   selector:
@@ -17,8 +16,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: oathkeeper
-        app.kubernetes.io/version: "v0.38.14-beta.1"
-      annotations:
+        app.kubernetes.io/version: "v0.38.25-beta.1"
     spec:
       volumes:
         - name: oathkeeper-config-volume
@@ -32,7 +30,7 @@ spec:
             secretName: oathkeeper-jwk  
       containers:
         - name: oathkeeper
-          image: "oryd/oathkeeper:v0.38.14-beta.1"
+          image: "oryd/oathkeeper:v0.38.25-beta.1"
           imagePullPolicy: IfNotPresent
           command: [ "oathkeeper", "serve", "--config", "/etc/config/config.yaml" ]
           env:
