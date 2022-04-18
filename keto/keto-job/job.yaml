@@ -13,7 +13,7 @@ spec:
             name: keto-access-policy
       containers:
       - name: keto-add-policies
-        image: oryd/keto:v0.6.0-alpha.3
+        image: oryd/keto:v0.8.0-alpha.2
         args: ["relation-tuple", "create", "/policies/access-policy.json"]
         volumeMounts:
             - name: keto-access-policy-volume

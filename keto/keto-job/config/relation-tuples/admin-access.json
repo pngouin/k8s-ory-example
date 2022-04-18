@@ -3,18 +3,18 @@
         "namespace": "access",
         "object": "administration",
         "relation": "access",
-        "subject": "admin"
+        "subject_id": "admin"
     },
     {
         "namespace": "access",
         "object": "application",
         "relation": "access",
-        "subject": "admin"
+        "subject_id": "admin"
     },
     {
         "namespace": "access",
         "object": "application",
         "relation": "access",
-        "subject": "user"
+        "subject_id": "user"
     }
 ]

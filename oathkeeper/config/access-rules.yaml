@@ -44,7 +44,7 @@
           "namespace": "access",
           "object": "administration",
           "relation": "access",
-          "subject": "{{print .Extra.identity.traits.role }}"
+          "subject_id": "{{print .Extra.identity.traits.role }}"
         }
   mutators:
     - handler: id_token
@@ -70,7 +70,7 @@
           "namespace": "access",
           "object": "administration",
           "relation": "access",
-          "subject": "{{print .Extra.identity.traits.role }}"
+          "subject_id": "{{print .Extra.identity.traits.role }}"
         }
   mutators:
     - handler: id_token
@@ -117,7 +117,7 @@
           "namespace": "access",
           "object": "application",
           "relation": "access",
-          "subject": "{{print .Extra.identity.traits.role }}"
+          "subject_id": "{{print .Extra.identity.traits.role }}"
         }
   mutators:
     - handler: id_token
