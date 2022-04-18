@@ -5,6 +5,7 @@ resources:
   - deployment.yaml
   - service-admin.yaml
   - service-public.yaml
+  - sa.yaml
 
 secretGenerator:
   - name: kratos-secret

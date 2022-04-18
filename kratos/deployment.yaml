@@ -22,82 +22,81 @@ spec:
         app.kubernetes.io/version: "v0.9.0-alpha.3"
     spec:
       initContainers:
-        -
-          name: kratos-automigrate
+        - name: kratos-automigrate
           image: "oryd/kratos:v0.9.0-alpha.3"
           imagePullPolicy: IfNotPresent
           command: ["kratos"]
-          args: ["migrate", "sql", "-e", "--yes", "--config", "/etc/config/kratos.yaml"]
+          args:
+            [
+              "migrate",
+              "sql",
+              "-e",
+              "--yes",
+              "--config",
+              "/etc/config/kratos.yaml",
+            ]
           volumeMounts:
-            -
-              name: kratos-config-volume
+            - name: kratos-config-volume
               mountPath: /etc/config
               readOnly: true
           env:
-            -
-              name: DSN
+            - name: DSN
               valueFrom:
                 secretKeyRef:
                   name: kratos-secret
                   key: dsn
-            -
-              name: SECRETS_DEFAULT
+            - name: SECRETS_DEFAULT
               valueFrom:
                 secretKeyRef:
                   name: kratos-secret
                   key: secretsDefault
-            -
-              name: SECRETS_COOKIE
+            - name: SECRETS_COOKIE
               valueFrom:
                 secretKeyRef:
                   name: kratos-secret
                   key: secretsCookie
       volumes:
-        -
-          name: kratos-config-volume
+        - name: kratos-config-volume
           configMap:
             name: kratos-config
-        -
-          name: kratos-identity-schema
+        - name: kratos-identity-schema
           configMap:
             name: kratos-identity
+      automountServiceAccountToken: true
+      serviceAccountName: test-kratos
       containers:
         - name: kratos
           image: "oryd/kratos:v0.9.0-alpha.3"
           imagePullPolicy: IfNotPresent
           command: ["kratos"]
-          args: [
-            "serve",
-            "all",
-            "--dev",
-            "--config",
-            "/etc/config/kratos.yaml",
-            "--watch-courier"
-          ]
+          args:
+            [
+              "serve",
+              "all",
+              "--dev",
+              "--config",
+              "/etc/config/kratos.yaml",
+              "--watch-courier",
+            ]
           volumeMounts:
-            -
-              name: kratos-config-volume
+            - name: kratos-config-volume
               mountPath: /etc/config
               readOnly: true
-            -
-              name: kratos-identity-schema
+            - name: kratos-identity-schema
               mountPath: /etc/config/identity/
               readOnly: true
           env:
-            -
-              name: DSN
+            - name: DSN
               valueFrom:
                 secretKeyRef:
                   name: kratos-secret
                   key: dsn
-            -
-              name: SECRETS_DEFAULT
+            - name: SECRETS_DEFAULT
               valueFrom:
                 secretKeyRef:
                   name: kratos-secret
                   key: secretsDefault
-            -
-              name: SECRETS_COOKIE
+            - name: SECRETS_COOKIE
               valueFrom:
                 secretKeyRef:
                   name: kratos-secret
@@ -110,12 +109,25 @@ spec:
               containerPort: 4433
               protocol: TCP
           livenessProbe:
+            failureThreshold: 5
             httpGet:
-              path: /health/alive
+              path: /admin/health/alive
               port: http-admin
+            initialDelaySeconds: 30
+            periodSeconds: 10
           readinessProbe:
+            failureThreshold: 5
             httpGet:
-              path: /health/ready
+              path: /admin/health/ready
               port: http-admin
-          resources:
-            null
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 100
