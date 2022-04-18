@@ -23,7 +23,7 @@
   id: "ory:kratos:admin"
   upstream:
     preserve_host: true
-    url: "http://test-kratos-admin:4434"
+    url: "http://test-kratos-admin:4434/admin/"
     strip_path: /.ory/kratos/private
   match:
     url: "http://ory.test.info/.ory/kratos/private/<**>"

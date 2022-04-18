@@ -5,7 +5,6 @@ metadata:
   namespace: default
   labels:
     app.kubernetes.io/name: selfservice
-  annotations:
 spec:
   replicas: 1
   selector:
@@ -15,11 +14,10 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: selfservice
-      annotations:
     spec:
       containers:
         - name: selfservice-ui
-          image: "oryd/kratos-selfservice-ui-node:v0.8.0-alpha.4.pre.0"
+          image: "oryd/kratos-selfservice-ui-node:v0.9.0-alpha.3"
           imagePullPolicy: IfNotPresent
           envFrom:
             - configMapRef:

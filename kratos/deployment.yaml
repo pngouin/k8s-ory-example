@@ -7,8 +7,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kratos
     app.kubernetes.io/instance: test-kratos
-    app.kubernetes.io/version: "v0.8.0-alpha.3"
-  annotations:
+    app.kubernetes.io/version: "v0.9.0-alpha.3"
 spec:
   replicas: 1
   selector:
@@ -20,13 +19,12 @@ spec:
       labels:
         app.kubernetes.io/name: kratos
         app.kubernetes.io/instance: test-kratos
-        app.kubernetes.io/version: "v0.8.0-alpha.3"
-      annotations:
+        app.kubernetes.io/version: "v0.9.0-alpha.3"
     spec:
       initContainers:
         -
           name: kratos-automigrate
-          image: "oryd/kratos:v0.8.0-alpha.3"
+          image: "oryd/kratos:v0.9.0-alpha.3"
           imagePullPolicy: IfNotPresent
           command: ["kratos"]
           args: ["migrate", "sql", "-e", "--yes", "--config", "/etc/config/kratos.yaml"]
@@ -65,7 +63,7 @@ spec:
             name: kratos-identity
       containers:
         - name: kratos
-          image: "oryd/kratos:v0.8.0-alpha.3"
+          image: "oryd/kratos:v0.9.0-alpha.3"
           imagePullPolicy: IfNotPresent
           command: ["kratos"]
           args: [

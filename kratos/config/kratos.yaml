@@ -1,5 +1,5 @@
-version: v0.8.0-alpha.3
-
+version: v0.9.0-alpha.3
+dsn: fromEnv
 serve:
   public:
     base_url: http://ory.test.info/.ory/kratos/public/
@@ -16,7 +16,7 @@ session:
 
 selfservice:
   default_browser_return_url: http://ory.test.info/panel/welcome
-  whitelisted_return_urls:
+  allowed_return_urls:
     - http://ory.test.info/panel/welcome
 
   methods:
@@ -96,7 +96,10 @@ hashers:
     key_length: 16
 
 identity:
-  default_schema_url: file:///etc/config/identity/identity.schema.json
+  default_schema_id: default
+  schemas:
+    - id: default
+      url: file:///etc/config/identity/identity.schema.json
 
 courier:
   smtp:
